@@ -1,10 +1,113 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Welcome</title>
+    <meta charset="UTF-8">
+    <title>Emma's Homepage</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Hello! My name is Emma!</h1>
-    <p>This website is a work in progress...</p>
+    <div style="position: absolute; top: 20px; left: 20px;">
+      <div class="desktop-icon">
+        <img src="explorer.png" />
+        <div>Explorer</div>
+      </div>
+
+      <div class="desktop-icon">
+        <img src="recycle.png" />
+        <div>Recycle Bin</div>
+      </div>
+    </div>
+
+    <div class="window active" style="position: absolute; top: 150px; left: 600px; width: 700px;" id="cmdWindow">
+      
+      <!-- Window Title Bar -->
+      <div class="title-bar" id="cmdTitleBar">
+        <div class="title-bar-text" style="font-family: 'Tahoma', sans-serif;">C:\WINDOWS\system32\cmd.exe</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+
+      <!-- Loader -->
+      <div id="loader" class="window-body">
+        <p>Loading system resources...</p>
+        <progress value="0" max="100" id="progressBar" style="width: 100%;"></progress>
+      </div>
+
+      <!-- Commandline Body -->
+      <div id="cmdBody" class="window-body" style="display: none; background-color: black; color: lime; font-family: monospace; padding: 10px;">
+        <pre id="typeTarget"></pre>
+      </div>
+    </div>
+
+    <script>
+      const progressBar = document.getElementById('progressBar');
+      const loader = document.getElementById('loader');
+      const cmdBody = document.getElementById('cmdBody');
+      const typeTarget = document.getElementById('typeTarget');
+
+      const fullText = 
+    `Microsoft Windows XP [Version 5.1.2600]
+    (C) Copyright 1985-2001 Microsoft Corp.
+
+    C:\> type intro.txt
+    
+    Hello! My name is Emma!
+    Welcome to my Windows XP-inspired website!
+    Right now, I am studying computer science at Stanford University.
+    This website was made using XP.css (github.com/botoxparty/XP.css)!`;
+
+      let progress = 0;
+      const progressInterval = setInterval(() => {
+        progress += 5;
+        progressBar.value = progress;
+        if (progress >= 100) {
+          clearInterval(progressInterval);
+          loader.style.display = 'none';
+          cmdBody.style.display = 'block';
+          typeLine(fullText, 0);
+        }
+      }, 100);
+
+     
+      function typeLine(text, index) {
+        if (index < 108) {
+          typeTarget.textContent += text[index];
+          setTimeout(() => typeLine(text, index + 1), 50); 
+        } else {
+          typeTarget.textContent += text.slice(index);
+        }
+      }
+    </script>
+
+    <script>
+      const cmdWindow = document.getElementById('cmdWindow');
+      const titleBar = document.getElementById('cmdTitleBar');
+      let isDragging = false, offsetX = 0, offsetY = 0;
+
+      titleBar.addEventListener('mousedown', e => {
+        isDragging = true;
+        offsetX = e.clientX - cmdWindow.offsetLeft;
+        offsetY = e.clientY - cmdWindow.offsetTop;
+      });
+
+      document.addEventListener('mouseup', () => isDragging = false);
+
+      document.addEventListener('mousemove', e => {
+        if (isDragging) {
+          cmdWindow.style.left = `${e.clientX - offsetX}px`;
+          cmdWindow.style.top = `${e.clientY - offsetY}px`;
+        }
+      });
+    </script>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+      <button id="startButton" class="startButton">
+        <svg src="start.svg" alt="Start" ></svg>
+      </button>
+    </div>
   </body>
 </html>
