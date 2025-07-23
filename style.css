@@ -1,8 +1,17 @@
 @import url('https://unpkg.com/xp.css');
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Tahoma, sans-serif;
+}
+
 body {
     background-image: url('bliss.jpg');
-    background-size: cover;
+    background-size: cover;            /* zoom image to cover entire viewport */
+    background-position: center 10%;       /* center the image */
+    background-repeat: no-repeat; 
     margin: 0;
     padding: 0;
     font-family: Tahoma, sans-serif;
@@ -21,60 +30,50 @@ body {
     height: 48px;
 }
 
+/* Make taskbar flush and remove padding */
 .taskbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background-color: #4760D4;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px; /* match your desired height */
+  background: url('taskbar.png') no-repeat center;
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  padding: 0;         /* important: remove padding so button can touch edge */
+  margin: 0;
 }
 
+/* Fully reset and size button to match image */
 #startButton {
-    all: unset !important;
-    width: 100px !important;
-    height: 30px !important;
-    cursor: pointer !important;
-    display: inline-block !important;
-    padding: 0 !important;
-    border: none !important;
-    outline: none !important;
-    background: none !important;
-    box-shadow: none !important;
-    filter: none !important;
+  all: unset !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+  height: 100% !important;     /* match taskbar height */
+  display: inline-block !important;
+  position: relative;
 }
 
+/* Remove highlight/gray on interaction */
 #startButton:hover,
 #startButton:focus,
 #startButton:active {
-    background-color: transparent !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    filter: none !important;
-    opacity: 1 !important;
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  opacity: 1 !important;
 }
 
-/* SVG inside the button */
-#startButton svg {
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-    pointer-events: visiblePainted !important; /* Click only on visible parts */
-    user-select: none !important;
-    background: none !important;
-    filter: none !important;
-    box-shadow: none !important;
-}
-
-#startButton:active svg,
-#startButton:hover svg,
-#startButton:focus svg {
-    background: none !important;
-    filter: none !important;
-    box-shadow: none !important;
+/* Image defines button width */
+#startButton img {
+  display: block;
+  height: 100%;        /* fill taskbar vertically */
+  width: auto;         /* keep natural aspect ratio */
+  pointer-events: none;
+  user-select: none;
 }
