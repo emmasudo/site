@@ -1,0 +1,80 @@
+@import url('https://unpkg.com/xp.css');
+
+body {
+    background-image: url('bliss.jpg');
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: Tahoma, sans-serif;
+}
+
+.desktop-icon {
+    width: 80px;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px black;
+    margin: 10px;
+}
+
+.desktop-icon img {
+    width: 48px;
+    height: 48px;
+}
+
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background-color: #4760D4;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: white;
+}
+
+#startButton {
+    all: unset !important;
+    width: 100px !important;
+    height: 30px !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+#startButton:hover,
+#startButton:focus,
+#startButton:active {
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+}
+
+/* SVG inside the button */
+#startButton svg {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    pointer-events: visiblePainted !important; /* Click only on visible parts */
+    user-select: none !important;
+    background: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+#startButton:active svg,
+#startButton:hover svg,
+#startButton:focus svg {
+    background: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+}
