@@ -24,9 +24,9 @@
       <div class="title-bar" id="cmdTitleBar">
         <div class="title-bar-text" style="font-family: 'Tahoma', sans-serif;">C:\WINDOWS\system32\cmd.exe</div>
         <div class="title-bar-controls">
-          <button aria-label="Minimize"></button>
-          <button aria-label="Maximize"></button>
-          <button aria-label="Close"></button>
+          <button aria-label="Minimize" id="MinimizeCmdWindow"></button>
+          <button aria-label="Maximize" id="MaximizeCmdWindow"></button>
+          <button aria-label="Close" id="CloseCmdWindow"></button>
         </div>
       </div>
 
@@ -40,6 +40,14 @@
       <div id="cmdBody" class="window-body" style="display: none; background-color: black; color: lime; font-family: monospace; padding: 10px;">
         <pre id="typeTarget"></pre>
       </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+      <button id="startButton" class="startButton">
+        <img src="start.png" alt="Start" />
+      </button>
+      <div id="taskbarWindows"></div>
     </div>
 
     <script>
@@ -85,13 +93,41 @@
     <script>
       const cmdWindow = document.getElementById('cmdWindow');
       const titleBar = document.getElementById('cmdTitleBar');
+      const exitButton = document.getElementById('CloseCmdWindow');
+      const maxButton = document.getElementById('MaximizeCmdWindow');
+      const minButton = document.getElementById('MinimizeCmdWindow');
+      const taskWindows = document.getElementById('taskbarWindows');
+
       let isDragging = false, offsetX = 0, offsetY = 0;
+
+      const taskBtn = document.createElement('button');
+      taskBtn.id = 'cmdTaskbarBtn';
+      taskBtn.className = 'taskbar-window-button';
+      taskBtn.textContent = 'Command Prompt';
+      taskWindows.appendChild(taskBtn);
 
       titleBar.addEventListener('mousedown', e => {
         isDragging = true;
         offsetX = e.clientX - cmdWindow.offsetLeft;
         offsetY = e.clientY - cmdWindow.offsetTop;
       });
+
+      exitButton.addEventListener('click', e => {
+        cmdWindow.style.display = 'none';
+        taskBtn.remove();
+      });
+
+      maxButton.addEventListener('click', e => {
+        cmdWindow.classList.toggle('fullscreen-cmd');
+      })
+
+      minButton.addEventListener('click', e => {
+        cmdWindow.style.display = 'none';
+      })
+
+      taskBtn.addEventListener('click', e => {
+        cmdWindow.style.display = 'block';
+      })
 
       document.addEventListener('mouseup', () => isDragging = false);
 
@@ -102,12 +138,5 @@
         }
       });
     </script>
-
-    <!-- Taskbar -->
-    <div class="taskbar">
-      <button id="startButton" class="startButton">
-        <img src="start.png" alt="Start" />
-      </button>
-    </div>
   </body>
 </html>

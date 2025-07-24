@@ -30,6 +30,23 @@ body {
     height: 48px;
 }
 
+.fullscreen-cmd {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+}
+
+/* Let the black body stretch */
+.fullscreen-cmd .window-body {
+  flex: 1;
+  overflow: auto;
+}
+
 /* Make taskbar flush and remove padding */
 .taskbar {
   position: fixed;
@@ -76,4 +93,17 @@ body {
   width: auto;         /* keep natural aspect ratio */
   pointer-events: none;
   user-select: none;
+}
+
+.taskbar-window-button {
+  height: 100%;
+  background: url('taskbarbutton.png') no-repeat center;
+  border: 2px outset #fff;
+  font-family: Tahoma, sans-serif;
+  font-size: 12px;
+  padding: 0 10px;
+  margin-left: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
